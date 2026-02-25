@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    parameters {
-        string(name: 'ANDROID_VERSION', defaultValue: '', description: 'Selected via Active Choices')
-        string(name: 'SIMULATOR', defaultValue: '', description: 'Selected via Active Choices')
-    }
-
     environment {
         SAUCE_USERNAME = credentials('sauce-username')
         SAUCE_ACCESS_KEY = credentials('sauce-access-key')
