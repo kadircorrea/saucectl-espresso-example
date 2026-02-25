@@ -2,8 +2,12 @@ pipeline {
     agent any
 
     parameters {
+        // Your existing dynamic parameters
         string(name: 'ANDROID_VERSION', defaultValue: '15.0')
         string(name: 'SIMULATOR', defaultValue: 'Generic Medium Phone Emulator')
+        
+        // The new Retries field with a default of 1
+        string(name: 'RETRIES', defaultValue: '1', description: 'Number of times to retry failed test cases')
     }
 
     environment {
@@ -12,17 +16,21 @@ pipeline {
     }
 
     stages {
+        stage('Initialize') {
+            steps {
+                cleanWs()
+            }
+        }
+
         stage('Run Sauce Labs Test') {
             steps {
-                echo "Running on ${params.SIMULATOR} with Android ${params.ANDROID_VERSION}"
-
-                // Bridge params to actual shell environment variables
                 withEnv([
                     "EMULATOR=${params.SIMULATOR}",
                     "ANDROID_VERSION=${params.ANDROID_VERSION}"
                 ]) {
                     sh 'npm install saucectl'
-                    sh 'npx saucectl run'
+                    
+                    sh "npx saucectl run --retries ${params.RETRIES}"
                 }
             }
         }
