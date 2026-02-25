@@ -14,11 +14,11 @@ espresso:
   app: ./apps/mda-1.0.10-12.apk
   testApp: ./apps/mda-androidTest-1.0.10-12.apk
 suites:
-  - name: "saucy barista on Android Emulator"
+  - name: "Test Demo App"
     emulators:
-      - name: "Android GoogleAPI Emulator"
+      - name: "${EMULATOR}"
         platformVersions:
-          - "15.0"
+          - "${ANDROID_VERSION}"
 artifacts:
   download:
     when: always
