@@ -2,7 +2,7 @@ apiVersion: v1alpha
 kind: espresso
 sauce:
   region: us-west-1
-  #retries: 3
+  retries: 3
   # Controls how many suites are executed at the same time (sauce test env only).
   concurrency: 10
   metadata:
@@ -16,7 +16,7 @@ espresso:
   testApp: ./apps/mda-androidTest-1.0.10-12.apk
 suites:
   - name: "Test Demo App"
-    #passThreshold: 2
+    passThreshold: 2
     emulators:
       - name: "${EMULATOR}"
         platformVersions:
